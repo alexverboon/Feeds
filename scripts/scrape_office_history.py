@@ -10,8 +10,7 @@ import re, requests, pandas as pd
 from bs4 import BeautifulSoup
 
 URL = (
-    "https://learn.microsoft.com/en-us/officeupdates/"
-    "update-history-microsoft365-apps-by-date"
+    "https://learn.microsoft.com/en-us/officeupdates/update-history-microsoft365-apps-by-date"
 )
 OUTFILE = Path("data/office_update_history_2018-present.csv")
 OUTFILE.parent.mkdir(parents=True, exist_ok=True)
