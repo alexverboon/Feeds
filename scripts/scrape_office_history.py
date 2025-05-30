@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Scrape the Microsoft Learn “Update history (listed by date)” page and
-write/refresh data/office_update_history_2018-present.csv
+Scrape Microsoft Learn ‘update-history-…by-date’ and refresh
+data/office_update_history_2018-present.csv
 """
 
 from pathlib import Path
@@ -19,28 +19,35 @@ html = requests.get(
     timeout=60,
 ).text
 
-# ── 1 ▸  strip all HTML tags and collapse whitespace
-text = re.sub(r"<[^>]+>", " ", html)          # remove tags
-text = re.sub(r"\s+", " ", text)              # compress whitespace
+# Strip tags → single-space text
+plain = re.sub(r"<[^>]+>", " ", html)
+plain = re.sub(r"\s+", " ", plain)
 
-# ── 2 ▸  regex for either “2025 May 29”  or  “May 29, 2025”
+MONTHS = ("January|February|March|April|May|June|July|August|"
+          "September|October|November|December")
+
 pat = re.compile(
-    r"(?:"
-    r"(?P<Y1>\d{4})\s+(?P<M1>[A-Z][a-z]+)\s+(?P<D1>\d{1,2})"         # 2025 May 29
-    r"|"
-    r"(?P<M2>[A-Z][a-z]+)\s+(?P<D2>\d{1,2}),\s+(?P<Y2>\d{4})"         # May 29, 2025
-    r")"
-    r".{0,200}?"                                                      # up to 200 chars (newlines, etc.)
-    r"Version\s+(?P<ver>\d{4})\s+\(Build\s+(?P<build>[\d.]+)\)",
+    rf"(?:"
+    rf"(?P<Y1>\d{{4}})\s+(?P<M1>{MONTHS})\s+(?P<D1>\d{{1,2}})"      # 2025 May 29
+    rf"|"
+    rf"(?P<M2>{MONTHS})\s+(?P<D2>\d{{1,2}}),\s+(?P<Y2>\d{{4}})"      # May 29, 2025
+    rf")"
+    rf".{{0,200}}?"                                                  # up to 200 chars
+    rf"Version\s+(?P<ver>\d{{4}})\s+\(Build\s+(?P<build>[\d.]+)\)",
     re.S,
 )
 
 records = []
-for m in pat.finditer(text):
+for m in pat.finditer(plain):
     year  = m.group("Y1") or m.group("Y2")
     month = m.group("M1") or m.group("M2")
     day   = m.group("D1") or m.group("D2")
-    date  = pd.to_datetime(f"{year} {month} {day}").strftime("%Y-%m-%d")
+    try:
+        date = pd.to_datetime(f"{year} {month} {day}").strftime("%Y-%m-%d")
+    except ValueError:
+        # Skip any malformed capture rather than crashing
+        print(f"⚠️  Skipped malformed date: {year}-{month}-{day}", file=sys.stderr)
+        continue
     records.append(
         {"Release Date": date,
          "Version":      m.group("ver"),
