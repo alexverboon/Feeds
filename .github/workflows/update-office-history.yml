@@ -3,43 +3,50 @@ name: Update Office Build History
 on:
   schedule:
     # every day at 06:00 UTC
-    - cron:  '0 6 * * *'
-  workflow_dispatch:  # allow manual runs
+    - cron: '0 6 * * *'
+  workflow_dispatch:            # allow manual runs
 
 jobs:
   scrape-and-commit:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣  Check out the repo using the PAT you saved as OFFICEHISTORYBOT
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.OFFICEHISTORYBOT }}
 
+      # 2️⃣  Set up Python (no pip cache → no requirements file needed)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
+      # 3️⃣  Install runtime dependencies
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 pandas
+          pip install --no-cache-dir requests beautifulsoup4 pandas
 
+      # 4️⃣  Run the scraper script
       - name: Run scraper
-        run: |
-          python scripts/scrape_office_history.py
+        run: python scripts/scrape_office_history.py
 
+      # 5️⃣  Commit and push only when data changed
       - name: Commit & push if updated
+        env:
+          GIT_TOKEN: ${{ secrets.OFFICEHISTORYBOT }}
         run: |
-          git config user.name  "office-history-bot"
-          git config user.email "actions@users.noreply.github.com"
-          if [[ `git status --porcelain` ]]; then
+          git config --global user.name  "office-history-bot"
+          git config --global user.email "actions@users.noreply.github.com"
+
+          # Anything staged?
+          if [[ -n $(git status --porcelain) ]]; then
             git add data/office_update_history_*.csv
-            git commit -m "chore: update Office build history (`date -u +'%Y-%m-%d %H:%M:%S'`) [skip ci]"
-            git push
+            git commit -m "chore: update Office build history $(date -u +'%Y-%m-%d %H:%M:%SZ') [skip ci]"
+            # Use token for push
+            git push https://x-access-token:${GIT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
           else
             echo "No changes – nothing to commit."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+
