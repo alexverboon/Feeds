@@ -34,19 +34,19 @@ jobs:
 
       # 5️⃣  Commit and push only when data changed
       - name: Commit & push if updated
-        env:
-          GIT_TOKEN: ${{ secrets.OFFICEHISTORYBOT }}
         run: |
           git config --global user.name  "office-history-bot"
           git config --global user.email "actions@users.noreply.github.com"
 
-          # Anything staged?
           if [[ -n $(git status --porcelain) ]]; then
             git add data/office_update_history_*.csv
             git commit -m "chore: update Office build history $(date -u +'%Y-%m-%d %H:%M:%SZ') [skip ci]"
-            # Use token for push
-            git push https://x-access-token:${GIT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+
+            # 🟢 push the new commit to the branch that triggered the workflow
+            # $GITHUB_REF_NAME is simply "main", "master", etc.
+            git push origin HEAD:${GITHUB_REF_NAME}
           else
             echo "No changes – nothing to commit."
           fi
+
 
