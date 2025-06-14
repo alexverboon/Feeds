@@ -5,7 +5,9 @@ data/office_update_history_2018-present.csv
 """
 
 from pathlib import Path
-import re, sys, requests, pandas as pd
+import sys, requests, pandas as pd
+from bs4 import BeautifulSoup
+import re
 
 URL  = ("https://learn.microsoft.com/en-us/officeupdates/"
         "update-history-microsoft365-apps-by-date")
@@ -13,56 +15,53 @@ DEST = Path("data/office_update_history_2018-present.csv")
 DEST.parent.mkdir(parents=True, exist_ok=True)
 
 print("Downloading update-history page …", flush=True)
-html = requests.get(
-    URL,
-    headers={"User-Agent": "office-history-bot/1.0"},
-    timeout=60,
-).text
+res = requests.get(URL, headers={"User-Agent": "office-history-bot/1.0"}, timeout=60)
+soup = BeautifulSoup(res.text, "html.parser")
 
-# Strip tags → single-space text
-plain = re.sub(r"<[^>]+>", " ", html)
-plain = re.sub(r"\s+", " ", plain)
+# Locate the first update history table
+table = soup.find("table")
+if not table:
+    print("ERROR: Could not find update history table", file=sys.stderr)
+    sys.exit(1)
 
-MONTHS = ("January|February|March|April|May|June|July|August|"
-          "September|October|November|December")
-
-# Updated regex pattern to improve match reliability
-pat = re.compile(
-    rf"(?:"  # Match either date format
-    rf"(?P<Y1>\d{{4}})\s+(?P<M1>{MONTHS})\s+(?P<D1>\d{{1,2}})"
-    rf"|"
-    rf"(?P<M2>{MONTHS})\s+(?P<D2>\d{{1,2}}),\s+(?P<Y2>\d{{4}})"
-    rf")"
-    rf".{{0,300}}?"  # Allow enough space between date and version/build
-    rf"Version\s+(?P<ver>\d{{4}})[^\d]{{0,20}}?Build[^\d]{{0,10}}(?P<build>\d{{4,}}(?:\.\d+)?)",
-    re.S | re.I
-)
+# Extract column headers (channel names)
+headers = [th.text.strip() for th in table.find_all("th")]
 
 records = []
-for m in pat.finditer(plain):
-    year  = m.group("Y1") or m.group("Y2")
-    month = m.group("M1") or m.group("M2")
-    day   = m.group("D1") or m.group("D2")
-    try:
-        date = pd.to_datetime(f"{year} {month} {day}").strftime("%Y-%m-%d")
-    except ValueError:
-        print(f"⚠️  Skipped malformed date: {year}-{month}-{day}", file=sys.stderr)
+for row in table.find_all("tr")[1:]:  # Skip header
+    cells = row.find_all("td")
+    if len(cells) < 2:
         continue
-    records.append({
-        "Release Date": date,
-        "Version":      m.group("ver"),
-        "Build":        m.group("build")
-    })
+
+    year = cells[0].text.strip()
+    date = cells[1].text.strip()
+    try:
+        release_date = pd.to_datetime(f"{year} {date}").strftime("%Y-%m-%d")
+    except ValueError:
+        print(f"⚠️ Skipped malformed date: {year} {date}", file=sys.stderr)
+        continue
+
+    for col_idx, cell in enumerate(cells[2:], start=2):
+        channel = headers[col_idx]
+        matches = re.findall(r"Version\s+(\d+)\s*\(Build\s+([\d.]+)\)", cell.text)
+        for version, build in matches:
+            records.append({
+                "Release Date": release_date,
+                "Channel": channel,
+                "Version": version,
+                "Build": build
+            })
 
 if not records:
-    sys.stderr.write("ERROR: regex found zero releases – check pattern.\n")
+    print("ERROR: No version/build records found", file=sys.stderr)
     sys.exit(1)
 
 df = (pd.DataFrame(records)
         .drop_duplicates()
-        .sort_values("Release Date", ascending=False)
+        .sort_values(["Release Date", "Channel"], ascending=[False, True])
         .reset_index(drop=True))
 
 changed = (not DEST.exists()) or not df.equals(pd.read_csv(DEST))
 df.to_csv(DEST, index=False, encoding="utf-8")
 print(f"Saved {len(df)} rows → {DEST}  (changed={changed})")
+
