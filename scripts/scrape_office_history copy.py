@@ -26,16 +26,15 @@ plain = re.sub(r"\s+", " ", plain)
 MONTHS = ("January|February|March|April|May|June|July|August|"
           "September|October|November|December")
 
-# Updated regex pattern to improve match reliability
 pat = re.compile(
-    rf"(?:"  # Match either date format
-    rf"(?P<Y1>\d{{4}})\s+(?P<M1>{MONTHS})\s+(?P<D1>\d{{1,2}})"
+    rf"(?:"
+    rf"(?P<Y1>\d{{4}})\s+(?P<M1>{MONTHS})\s+(?P<D1>\d{{1,2}})"      # 2025 May 29
     rf"|"
-    rf"(?P<M2>{MONTHS})\s+(?P<D2>\d{{1,2}}),\s+(?P<Y2>\d{{4}})"
+    rf"(?P<M2>{MONTHS})\s+(?P<D2>\d{{1,2}}),\s+(?P<Y2>\d{{4}})"      # May 29, 2025
     rf")"
-    rf".{{0,300}}?"  # Allow enough space between date and version/build
-    rf"Version\s+(?P<ver>\d{{4}})[^\d]{{0,20}}?Build[^\d]{{0,10}}(?P<build>\d{{4,}}(?:\.\d+)?)",
-    re.S | re.I
+    rf".{{0,200}}?"                                                  # up to 200 chars
+    rf"Version\s+(?P<ver>\d{{4}})\s+\(Build\s+(?P<build>[\d.]+)\)",
+    re.S,
 )
 
 records = []
@@ -46,13 +45,14 @@ for m in pat.finditer(plain):
     try:
         date = pd.to_datetime(f"{year} {month} {day}").strftime("%Y-%m-%d")
     except ValueError:
+        # Skip any malformed capture rather than crashing
         print(f"⚠️  Skipped malformed date: {year}-{month}-{day}", file=sys.stderr)
         continue
-    records.append({
-        "Release Date": date,
-        "Version":      m.group("ver"),
-        "Build":        m.group("build")
-    })
+    records.append(
+        {"Release Date": date,
+         "Version":      m.group("ver"),
+         "Build":        m.group("build")}
+    )
 
 if not records:
     sys.stderr.write("ERROR: regex found zero releases – check pattern.\n")
