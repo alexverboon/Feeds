@@ -1,4 +1,5 @@
 Release Date,Channel,Version,Build
+2026-01-21,Current Channel,2512,19530.20184
 2026-01-13,Current Channel,2512,19530.20144
 2026-01-13,Monthly Enterprise Channel,2511,19426.20260
 2026-01-13,Monthly Enterprise Channel,2510,19328.20292
@@ -734,3 +735,118 @@ Release Date,Channel,Version,Build
 2017-12-12,Semi-Annual Enterprise Channel,1705,8201.2213
 2017-12-12,Semi-Annual Enterprise Channel,1701,7766.2130
 2017-12-12,Semi-Annual Enterprise Channel (Preview),1708,8431.2131
+1-12-06,Current Channel,1711,8730.2122
+1-11-27,Current Channel,1710,8625.2139
+1-11-24,Semi-Annual Enterprise Channel,1705,8201.2209
+1-11-20,Current Channel,1710,8625.2132
+1-11-14,Current Channel,1710,8625.2127
+1-11-14,Semi-Annual Enterprise Channel,1705,8201.2207
+1-11-14,Semi-Annual Enterprise Channel,1701,7766.2122
+1-11-14,Semi-Annual Enterprise Channel (Preview),1708,8431.2110
+1-11-02,Current Channel,1710,8625.2121
+1-10-25,Current Channel,1709,8528.2147
+1-10-16,Current Channel,1709,8528.2139
+1-10-10,Current Channel,1708,8431.2107
+1-10-10,Semi-Annual Enterprise Channel,1705,8201.2200
+1-10-10,Semi-Annual Enterprise Channel,1701,7766.2119
+1-10-10,Semi-Annual Enterprise Channel (Preview),1708,8431.2107
+1-10-04,Current Channel,1708,8431.2094
+1-09-18,Current Channel,1708,8431.2079
+1-09-12,Current Channel,1707,8326.2107
+1-09-12,Semi-Annual Enterprise Channel,1705,8201.2193
+1-09-12,Semi-Annual Enterprise Channel,1701,7766.2116
+1-09-12,Semi-Annual Enterprise Channel (Preview),1708,8431.2079
+1-08-29,Current Channel,1707,8326.2096
+1-08-24,Current Channel,1707,8326.2087
+1-08-18,Current Channel,1707,8326.2076
+1-08-11,Current Channel,1707,8326.2073
+1-08-08,Semi-Annual Enterprise Channel (Preview),1705,8201.2171
+1-08-07,Current Channel,1707,8326.2070
+1-07-31,Current Channel,1707,8326.2062
+1-07-28,Current Channel,1707,8326.2059
+1-07-27,Current Channel,1707,8326.2058
+1-07-27,Semi-Annual Enterprise Channel,1701,7766.2099
+1-07-27,Semi-Annual Enterprise Channel,1609,7369.2154
+1-07-27,Semi-Annual Enterprise Channel (Preview),1705,8201.2158
+1-07-25,Current Channel,1807,10325.20082
+1-07-19,Current Channel,1706,8229.2103
+1-07-17,Current Channel,1806,10228.20134
+1-07-13,Current Channel,1706,8229.2086
+1-07-13,Semi-Annual Enterprise Channel,1701,7766.2096
+1-07-13,Semi-Annual Enterprise Channel,1609,7369.2151
+1-07-13,Semi-Annual Enterprise Channel (Preview),1705,8201.2136
+1-07-10,Current Channel,1806,10228.20104
+1-07-10,Semi-Annual Enterprise Channel,1803,9126.2259
+1-07-10,Semi-Annual Enterprise Channel,1708,8431.2280
+1-07-10,Semi-Annual Enterprise Channel (Preview),1803,9126.2259
+1-06-28,Current Channel,1706,8229.2073
+1-06-25,Current Channel,1806,10228.20080
+1-06-13,Current Channel,1805,9330.2124
+1-06-13,Current Channel,1705,8201.2102
+1-06-13,Semi-Annual Enterprise Channel,1701,7766.2092
+1-06-13,Semi-Annual Enterprise Channel,1609,7369.2139
+1-06-13,Semi-Annual Enterprise Channel (Preview),1705,8201.2102
+1-06-12,Current Channel,1805,9330.2118
+1-06-12,Semi-Annual Enterprise Channel,1708,8431.2270
+1-06-12,Semi-Annual Enterprise Channel,1705,8201.2294
+1-06-12,Semi-Annual Enterprise Channel (Preview),1803,9126.2227
+1-06-07,Current Channel,1705,8201.2075
+1-06-01,Current Channel,1704,8067.2157
+1-05-24,Current Channel,1805,9330.2087
+1-05-23,Current Channel,1805,9330.2078
+1-05-18,Current Channel,1704,8067.2115
+1-05-18,Semi-Annual Enterprise Channel (Preview),1803,9126.2210
+1-05-14,Current Channel,1804,9226.2156
+1-05-09,Current Channel,1703,7967.2161
+1-05-09,Semi-Annual Enterprise Channel,1609,7369.2130
+1-05-09,Semi-Annual Enterprise Channel,1605,6965.2150
+1-05-09,Semi-Annual Enterprise Channel (Preview),1701,7766.2084
+1-05-08,Current Channel,1804,9226.2126
+1-05-08,Semi-Annual Enterprise Channel,1708,8431.2250
+1-05-08,Semi-Annual Enterprise Channel,1705,8201.2278
+1-05-08,Semi-Annual Enterprise Channel (Preview),1803,9126.2191
+1-04-25,Current Channel,1804,9226.2114
+1-04-21,Current Channel,1703,7967.2139
+1-04-11,Current Channel,1803,9126.2152
+1-04-11,Current Channel,1702,7870.2038
+1-04-11,Semi-Annual Enterprise Channel,1609,7369.2127
+1-04-11,Semi-Annual Enterprise Channel,1605,6965.2145
+1-04-11,Semi-Annual Enterprise Channel (Preview),1701,7766.2076
+1-04-10,Semi-Annual Enterprise Channel,1708,8431.2242
+1-04-10,Semi-Annual Enterprise Channel,1705,8201.2272
+1-04-10,Semi-Annual Enterprise Channel (Preview),1803,9126.2152
+1-03-27,Current Channel,1803,9126.2116
+1-03-27,Current Channel,1702,7870.2031
+1-03-20,Semi-Annual Enterprise Channel (Preview),1803,9126.2098
+1-03-14,Current Channel,1702,7870.2024
+1-03-14,Semi-Annual Enterprise Channel,1609,7369.2120
+1-03-14,Semi-Annual Enterprise Channel,1605,6965.2140
+1-03-14,Semi-Annual Enterprise Channel (Preview),1701,7766.2071
+1-03-13,Current Channel,1802,9029.2253
+1-03-13,Semi-Annual Enterprise Channel,1708,8431.2236
+1-03-13,Semi-Annual Enterprise Channel,1705,8201.2265
+1-03-13,Semi-Annual Enterprise Channel (Preview),1803,9126.2072
+1-03-09,Current Channel,1702,7870.2020
+1-02-26,Current Channel,1802,9029.2167
+1-02-23,Current Channel,1701,7766.2060
+1-02-22,Semi-Annual Enterprise Channel,1609,7369.2118
+1-02-22,Semi-Annual Enterprise Channel (Preview),1701,7766.2060
+1-02-13,Current Channel,1801,9001.2171
+1-02-13,Semi-Annual Enterprise Channel,1708,8431.2215
+1-02-13,Semi-Annual Enterprise Channel,1705,8201.2258
+1-02-13,Semi-Annual Enterprise Channel (Preview),1708,8431.2215
+1-02-07,Current Channel,1801,9001.2144
+1-02-01,Current Channel,1801,9001.2138
+1-01-31,Current Channel,1612,7668.2074
+1-01-30,Current Channel,1712,8827.2179
+1-01-25,Current Channel,1612,7668.2066
+1-01-17,Current Channel,1712,8827.2148
+1-01-10,Semi-Annual Enterprise Channel,1605,6965.2117
+1-01-10,Semi-Annual Enterprise Channel,1602,6741.2105
+1-01-10,Semi-Annual Enterprise Channel (Preview),1609,7369.2102
+1-01-09,Current Channel,1711,8730.2175
+1-01-09,Semi-Annual Enterprise Channel,1708,8431.2153
+1-01-09,Semi-Annual Enterprise Channel,1705,8201.2217
+1-01-09,Semi-Annual Enterprise Channel (Preview),1708,8431.2153
+1-01-04,Current Channel,1611,7571.2109
+1-01-02,Current Channel,1711,8730.2165
