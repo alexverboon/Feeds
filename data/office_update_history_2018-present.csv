@@ -128,6 +128,7 @@ Release Date,Channel,Version,Build
 2025-03-11,Monthly Enterprise Channel,2412,18324.20272
 2025-03-11,Semi-Annual Enterprise Channel,2408,17928.20468
 2025-03-11,Semi-Annual Enterprise Channel,2402,17328.20738
+2025-03-11,Semi-Annual Enterprise Channel (Preview),2502,18526.20168
 2025-03-05,Current Channel,2502,18526.20144
 2025-02-11,Current Channel,2501,18429.20158
 2025-02-11,Monthly Enterprise Channel,2412,18324.20240
@@ -718,6 +719,7 @@ Release Date,Channel,Version,Build
 2019-02-12,Semi-Annual Enterprise Channel (Preview),1808,10730.20280
 2019-01-31,Current Channel,1901,11231.20130
 2019-01-14,Current Channel,1812,11126.20266
+2019-01-08,Current Channel,1812,11126.20196
 2019-01-08,Semi-Annual Enterprise Channel,1808,10730.20264
 2019-01-08,Semi-Annual Enterprise Channel,1803,9126.2351
 2019-01-08,Semi-Annual Enterprise Channel,1708,8431.2366
